@@ -28,6 +28,10 @@ LOCAL_STATIC_LIBRARIES := \
 ifneq ($(HOST_OS),windows)
   LOCAL_STATIC_LIBRARIES += libselinux
 endif
+ifeq ($(BOARD_SUPPRESS_EMMC_WIPE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_EMMC_WIPE
+endif
+
 include $(BUILD_HOST_STATIC_LIBRARY)
 
 
@@ -44,6 +48,11 @@ else
   LOCAL_STATIC_LIBRARIES += libselinux
   LOCAL_CFLAGS := -DHOST
 endif
+
+ifeq ($(BOARD_SUPPRESS_EMMC_WIPE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_EMMC_WIPE
+endif
+
 include $(BUILD_HOST_EXECUTABLE)
 
 
